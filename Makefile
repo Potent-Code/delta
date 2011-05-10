@@ -20,6 +20,9 @@ mathlib.so: ${OBJ}
 	@echo "Compiling object $@..."
 	@${CC} ${CFLAGS} -fpic -c $<
 
+install: mathlib.so
+	@echo "Installing library $@..."
+
 # clean up
 clean:
 	@echo "Cleaning up..."
