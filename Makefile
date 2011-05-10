@@ -23,6 +23,9 @@ mathlib.so: ${OBJ}
 install: mathlib.so
 	@echo "Installing library $@..."
 
+uninstall:
+	@echo "Uninstalling..."
+
 # clean up
 clean:
 	@echo "Cleaning up..."
