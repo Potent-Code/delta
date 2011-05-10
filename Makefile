@@ -20,6 +20,7 @@ mathlib.so: ${OBJ}
 	@echo "Compiling object $@..."
 	@${CC} ${CFLAGS} -fpic -c $<
 
+#need libtool
 install: mathlib.so
 	@echo "Installing library $@..."
 
