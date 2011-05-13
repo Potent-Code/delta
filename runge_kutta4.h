@@ -10,4 +10,6 @@
 #include "vector.h"
 #include "vector_function.h"
 
+matrix runge_kutta4(vector_function f, vector y0, float tmin, float tmax, float h);
+
 #endif
