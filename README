@@ -1,0 +1,6 @@
+This is a library of a few useful mathematical routines.
+It is currently under active development and so can be 
+expected to grow. Good data types and allocations are 
+included for matrices, vectors, and vector functions. 
+It can also solve linear systems by LU factorization, 
+find the root of a polynomial and solve simple ODEs.

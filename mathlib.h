@@ -102,11 +102,6 @@ struct factored_system
 	float alpha;
 };
 
-// a list of factored systems
-struct factored_system *factorizations;
-int n_factorizations; // maximum number of factorizations
-int i_factorizations; // current number of factorizations
-
 // directly solve lower triangular system Lx=b
 void forward_substitution(matrix L, vector x, vector b);
 // directly solve upper triangular system Ux=b
