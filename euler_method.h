@@ -10,6 +10,6 @@
 #include "vector.h"
 #include "vector_function.h"
 
-matrix euler_method(vector_function f, vector y0, float tmin, float tmax, float h);
+extern matrix euler_method(vector_function f, vector y0, float tmin, float tmax, float h);
 
 #endif

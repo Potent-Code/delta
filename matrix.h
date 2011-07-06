@@ -21,18 +21,18 @@ typedef struct
 } *matrix;
 
 // prototypes for matrix functions
-float ** matrix_allocate(int n, int m);
-void print_matrix(matrix mat);
-int save_matrix(matrix mat, const char *filename);
-matrix load_matrix(const char *filename);
-matrix mult_matrix(matrix A, matrix B);
-matrix zero_matrix(int n, int m);
-matrix new_matrix(float (*element_function)(int, int, int, int),
+extern float ** matrix_allocate(int n, int m);
+extern void print_matrix(matrix mat);
+extern int save_matrix(matrix mat, const char *filename);
+extern matrix load_matrix(const char *filename);
+extern matrix mult_matrix(matrix A, matrix B);
+extern matrix zero_matrix(int n, int m);
+extern matrix new_matrix(float (*element_function)(int, int, int, int),
 		int n, int m, int x, int y);
-matrix identity_matrix(int n);
-void row_swap(float **A, int row1, int row2);
-void row_swap_partial(matrix mat, int row1, int row2, int min_col, int max_col);
-void col_swap_partial(matrix mat, int col1, int col2, int min_row, int max_row);
-void free_matrix(matrix mat);
+extern matrix identity_matrix(int n);
+extern void row_swap(float **A, int row1, int row2);
+extern void row_swap_partial(matrix mat, int row1, int row2, int min_col, int max_col);
+extern void col_swap_partial(matrix mat, int col1, int col2, int min_row, int max_row);
+extern void free_matrix(matrix mat);
 
 #endif

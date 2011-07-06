@@ -25,22 +25,22 @@ struct factored_system
 };
 
 // a list of factored systems
-struct factored_system *factorizations;
-int n_factorizations; // maximum number of factorizations
-int i_factorizations; // current number of factorizations
+extern struct factored_system *factorizations;
+extern int n_factorizations; // maximum number of factorizations
+extern int i_factorizations; // current number of factorizations
 
 // directly solve lower triangular system Lx=b
-void forward_substitution(matrix L, vector x, vector b);
+extern void forward_substitution(matrix L, vector x, vector b);
 // directly solve upper triangular system Ux=b
-void backward_substitution(matrix U, vector x, vector b);
+extern void backward_substitution(matrix U, vector x, vector b);
 // direct solution of LUx=b with factorizations index f
-void lu_solve(int f, vector x, vector b);
+extern void lu_solve(int f, vector x, vector b);
 // generate an LU factorization, return factorizations index
-int lu_factor(matrix A);
+extern int lu_factor(matrix A);
 // general method to solve a linear system Ax=b
-void linear_solve(matrix A, vector x, vector b);
+extern void linear_solve(matrix A, vector x, vector b);
 // cleanup
-void free_factor(int factor);
-void free_all_factors(void);
+extern void free_factor(int factor);
+extern void free_all_factors(void);
 
 #endif

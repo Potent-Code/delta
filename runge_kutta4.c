@@ -1,5 +1,7 @@
 #include "runge_kutta4.h"
 
+matrix runge_kutta4(vector_function f, vector y0, float tmin, float tmax, float h);
+
 matrix runge_kutta4(vector_function f, vector y0,
 		float tmin, float tmax, float h)
 {

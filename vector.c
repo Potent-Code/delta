@@ -4,6 +4,18 @@
 
 #include "vector.h"
 
+// prototypes for vector functions
+float * vector_allocate(int n);
+void print_vector(vector vec);
+int save_vector(vector vec, const char *filename);
+vector load_vector(const char *filename);
+vector mult_vector(vector a, vector b);
+vector zero_vector(int n);
+vector new_vector(float (*element_function)(int, int),
+		int n, int x);
+void component_swap(vector vec, int i, int j);
+void free_vector(vector vec);
+
 // allocate space for an n dimensional vector
 float * vector_allocate(int n)
 {

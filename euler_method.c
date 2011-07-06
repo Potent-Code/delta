@@ -1,5 +1,7 @@
 #include "euler_method.h"
 
+matrix euler_method(vector_function f, vector y0, float tmin, float tmax, float h);
+
 matrix euler_method(vector_function f, vector y0,
 		float tmin, float tmax, float h)
 {

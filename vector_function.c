@@ -4,6 +4,11 @@
 
 #include "vector_function.h"
 
+// prototypes for vector functions
+func * vecfunc_allocate(int n);
+vector_function new_vecfunc(int n, func f);
+void free_vecfunc(vector_function vf);
+
 // allocate space for an n dimensional vector function
 func * vecfunc_allocate(int n)
 {

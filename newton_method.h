@@ -11,6 +11,6 @@
 
 typedef float(*polynomial)(float); 
 
-float newton_method(float x0, polynomial f, polynomial fprime);
+extern float newton_method(float x0, polynomial f, polynomial fprime);
 
 #endif

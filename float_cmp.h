@@ -3,6 +3,6 @@
 
 #include "float.h"
 
-int float_cmp(float a, float b, int n);
+extern int float_cmp(float a, float b, int n);
 
 #endif

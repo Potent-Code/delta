@@ -21,8 +21,8 @@ typedef struct
 } *vector_function;
 
 // prototypes for vector functions
-func * vecfunc_allocate(int n);
-vector_function new_vecfunc(int n, func f);
-void free_vecfunc(vector_function vf);
+extern func * vecfunc_allocate(int n);
+extern vector_function new_vecfunc(int n, func f);
+extern void free_vecfunc(vector_function vf);
 
 #endif
