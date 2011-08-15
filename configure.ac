@@ -12,7 +12,6 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_PROG_CC
 LT_INIT
 LT_OUTPUT
-#AC_PROG_LIBTOOL
 
 # Checks for libraries.
 
