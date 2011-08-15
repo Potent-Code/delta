@@ -12638,7 +12638,6 @@ $SHELL "$CONFIG_LT" $lt_config_lt_args || lt_cl_success=false
 exec 5>>config.log
 $lt_cl_success || as_fn_exit 1
 
-#AC_PROG_LIBTOOL
 
 # Checks for libraries.
 
