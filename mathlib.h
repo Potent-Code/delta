@@ -2,6 +2,9 @@
  * by Ryan Lucchese
  * May 12 2011 */
 
+#ifndef MATHLIB_H
+#define MATHLIB_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
@@ -115,3 +118,5 @@ extern void linear_solve(matrix A, vector x, vector b);
 // cleanup
 extern void free_factor(int factor);
 extern void free_all_factors(void);
+
+#endif

@@ -6,10 +6,13 @@ AC_INIT([mathlib], [0.1], [ryan.lucchese@gmail.com])
 AM_INIT_AUTOMAKE([mathlib], [0.1])
 AC_CONFIG_SRCDIR([float_cmp.c])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
 AC_PROG_CC
-AC_PROG_LIBTOOL
+LT_INIT
+LT_OUTPUT
+#AC_PROG_LIBTOOL
 
 # Checks for libraries.
 
