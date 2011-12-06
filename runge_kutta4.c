@@ -8,7 +8,6 @@ matrix runge_kutta4(vector_function f, vector y0,
 	matrix Y;
 	int n=(int)((tmax-tmin)/h);
 	int i,j;
-	float k1,k2,k3,k4;
 
 	if(f->n != y0->n)
 	{
