@@ -36,3 +36,4 @@ extern void col_swap_partial(matrix mat, int col1, int col2, int min_row, int ma
 extern void free_matrix(matrix mat);
 
 #endif
+
