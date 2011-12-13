@@ -120,3 +120,4 @@ extern void free_factor(int factor);
 extern void free_all_factors(void);
 
 #endif
+
