@@ -370,3 +370,4 @@ void free_matrix(matrix mat)
 		free(mat);
 	}
 }
+
