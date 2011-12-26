@@ -360,14 +360,16 @@ void col_swap_partial(matrix mat, int col1, int col2, int min_row, int max_row)
 // Free a matrix and its struct
 void free_matrix(matrix mat)
 {
-	if((*mat).A != NULL)
+	if(mat->A != NULL)
 	{
 		free(mat->A[0]);
 		free(mat->A);
+		mat->A = NULL;
 	}
 	if(mat != NULL)
 	{
 		free(mat);
+		mat = NULL;
 	}
 }
 

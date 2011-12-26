@@ -230,12 +230,14 @@ void component_swap(vector vec, int i, int j)
 // Free a vector and its struct
 void free_vector(vector vec)
 {
-	if((*vec).a != NULL)
+	if(vec->a != NULL)
 	{
 		free(vec->a);
+		vec->a = NULL;
 	}
 	if(vec != NULL)
 	{
 		free(vec);
+		vec = NULL;
 	}
 }
