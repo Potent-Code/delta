@@ -26,8 +26,8 @@ struct factored_system
 
 // a list of factored systems
 extern struct factored_system *factorizations;
-extern int n_factorizations; // maximum number of factorizations
-extern int i_factorizations; // current number of factorizations
+extern unsigned int n_factorizations; // maximum number of factorizations
+extern unsigned int i_factorizations; // current number of factorizations
 
 // directly solve lower triangular system Lx=b
 extern void forward_substitution(matrix L, vector x, vector b);

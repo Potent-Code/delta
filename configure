@@ -734,6 +734,7 @@ enable_fast_install
 with_gnu_ld
 with_sysroot
 enable_libtool_lock
+enable_nodebug
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1371,6 +1372,7 @@ Optional Features:
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
+  --enable-nodebug        build without debugging information (default NO)
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -12639,7 +12641,13 @@ exec 5>>config.log
 $lt_cl_success || as_fn_exit 1
 
 
-# Checks for libraries.
+CFLAGS="-O0 -g3 -Wall -Wextra -Werror"
+# Check whether --enable-nodebug was given.
+if test "${enable_nodebug+set}" = set; then :
+  enableval=$enable_nodebug; test "$enableval" = "yes" && CFLAGS="-O3 -Wall -Wextra -Werror"
+fi
+
+
 
 # Checks for header files.
 for ac_header in float.h stdlib.h

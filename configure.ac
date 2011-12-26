@@ -13,7 +13,11 @@ AC_PROG_CC
 LT_INIT
 LT_OUTPUT
 
-# Checks for libraries.
+CFLAGS="-O0 -g3 -Wall -Wextra -Werror"
+AC_ARG_ENABLE([nodebug], [AC_HELP_STRING([--enable-nodebug],
+	          [build without debugging information (default NO)])],
+		      [test "$enableval" = "yes" && CFLAGS="-O3 -Wall -Wextra -Werror"])
+
 
 # Checks for header files.
 AC_CHECK_HEADERS([float.h stdlib.h])

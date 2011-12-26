@@ -16,7 +16,7 @@ typedef float(*func)(float *, int);
 // Store dimensions and offsets with a matrix
 typedef struct
 {
-	int n; // number of rows (height) of matrix
+	unsigned int n; // number of rows (height) of matrix
 	func * f; // array of function pointers
 } *vector_function;
 

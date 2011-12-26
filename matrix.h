@@ -13,8 +13,8 @@
 // Store dimensions and offsets with a matrix
 typedef struct
 {
-	int n; // number of rows (height) of matrix
-	int m; // number of columns (width) of matrix
+	unsigned int n; // number of rows (height) of matrix
+	unsigned int m; // number of columns (width) of matrix
 	int x_offset; // coordinates of sub matrix 1 <= x_offset <= n
 	int y_offset; // coordinates of sub matrix 1 <= y_offset <= m
 	float **A;
@@ -26,7 +26,7 @@ extern void print_matrix(matrix mat);
 extern int save_matrix(matrix mat, const char *filename);
 extern matrix load_matrix(const char *filename);
 extern matrix mult_matrix(matrix A, matrix B);
-extern matrix zero_matrix(int n, int m);
+extern matrix zero_matrix(unsigned int n, unsigned int m);
 extern matrix new_matrix(float (*element_function)(int, int, int, int),
 		int n, int m, int x, int y);
 extern matrix identity_matrix(int n);

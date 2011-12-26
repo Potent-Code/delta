@@ -35,9 +35,9 @@ float * vector_allocate(int n)
 // Print a vector
 void print_vector(vector vec)
 {
-	int i;
+	unsigned int i;
 
-	for(i = 0; i < vec->n; i++)
+	for (i = 0; i < vec->n; i++)
 	{
 		printf("%.16E\t",vec->a[i]);
 	}
@@ -48,10 +48,10 @@ void print_vector(vector vec)
 int save_vector(vector vec, const char *filename)
 {
 	FILE *outfile;
-	int i,b;
+	unsigned int i,b;
 
 	// attempt to open file for writing
-	if((outfile = fopen(filename, "w")) == NULL)
+	if ((outfile = fopen(filename, "w")) == NULL)
 	{
 		perror("Error opening file");
 		return 1;
@@ -61,7 +61,7 @@ int save_vector(vector vec, const char *filename)
 	// Not a problem as long as these files are opened
 	// on the same architecture that created them
 	b = sizeof(*vec)*fwrite(vec,sizeof(*vec),1,outfile);
-	for(i = 0; i < vec->n; i++)
+	for (i = 0; i < vec->n; i++)
 	{
 		b += sizeof(vec->a)*fwrite(&vec->a[i],
 				sizeof(vec->a),1,outfile);
@@ -72,7 +72,7 @@ int save_vector(vector vec, const char *filename)
 	
 	// check to make sure all bytes were written
 	// if not, errno should be set
-	if(b != (sizeof(*vec)+(sizeof(vec->a)*vec->n)))
+	if (b != (sizeof(*vec)+(sizeof(vec->a)*vec->n)))
 	{
 		perror("Error writing file");
 		return 1;
@@ -88,13 +88,13 @@ vector load_vector(const char *filename)
 {
 	vector vec,vec_info;
 	FILE *infile;
-	int i,b;
+	unsigned int i,b;
 	struct stat if_stat;
 
 	b = 0;
 
 	// attempt to open file for reading
-	if((infile = fopen(filename, "r+")) == NULL)
+	if ((infile = fopen(filename, "r+")) == NULL)
 	{
 		perror("Error opening file");
 		return NULL;
@@ -102,7 +102,7 @@ vector load_vector(const char *filename)
 	
 	// Read in the dimensions of the old vector first
 	// and then allocate space for where the rest of it goes
-	if((vec_info = zero_vector(1)) == NULL) // Only for dimensions
+	if ((vec_info = zero_vector(1)) == NULL) // Only for dimensions
 	{
 		return NULL;
 	}
@@ -112,7 +112,7 @@ vector load_vector(const char *filename)
 	// in the file vecch the size of the rest of the file. If not, it's very
 	// likely that someone has modified them with intent to corrupt the heap
 	stat(filename,&if_stat);
-	if((if_stat.st_size - sizeof(*vec_info)-1) !=
+	if ((if_stat.st_size - sizeof(*vec_info)-1) !=
 			(sizeof(vec_info->a)*vec_info->n))
 	{
 		// If we don't catch this here and dimensions are wrong, fread()
@@ -123,7 +123,7 @@ vector load_vector(const char *filename)
 	}
 
 	// This is where our vector will go
-	if((vec = zero_vector(vec_info->n)) == NULL)
+	if ((vec = zero_vector(vec_info->n)) == NULL)
 	{
 		return NULL;
 	}
@@ -132,7 +132,7 @@ vector load_vector(const char *filename)
 	vec->x_offset = vec_info->x_offset;
 	
 	// Read in each value of the vector
-	for(i = 0; i < vec->n; i++)
+	for (i = 0; i < vec->n; i++)
 	{
 		b += sizeof(vec->a)*fread(&vec->a[i],sizeof(vec->a),1,infile);
 	}
@@ -140,7 +140,7 @@ vector load_vector(const char *filename)
 	// check the number of bytes read against the number we expect
 	// if perror() returns "Success" here, it's very likely that someone
 	// has modified the vector file with intent to corrupt the heap
-	if(b != (sizeof(*vec)+(sizeof(vec->a)*vec->n)))
+	if (b != (sizeof(*vec)+(sizeof(vec->a)*vec->n)))
 	{
 		perror("Error reading file");
 		return NULL;

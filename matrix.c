@@ -10,7 +10,7 @@ void print_matrix(matrix mat);
 int save_matrix(matrix mat, const char *filename);
 matrix load_matrix(const char *filename);
 matrix mult_matrix(matrix A, matrix B);
-matrix zero_matrix(int n, int m);
+matrix zero_matrix(unsigned int n, unsigned int m);
 matrix new_matrix(float (*element_function)(int, int, int, int),
 		int n, int m, int x, int y);
 matrix identity_matrix(int n);
@@ -52,11 +52,11 @@ float ** matrix_allocate(int n, int m)
 // Print a matrix
 void print_matrix(matrix mat)
 {
-	int i,j;
+	unsigned int i,j;
 
-	for(i = 0; i < mat->n; i++)
+	for (i = 0; i < mat->n; i++)
 	{
-		for(j = 0; j < mat->m; j++)
+		for (j = 0; j < mat->m; j++)
 		{
 			printf("%.16E\t",mat->A[i][j]);
 		}
@@ -68,10 +68,10 @@ void print_matrix(matrix mat)
 int save_matrix(matrix mat, const char *filename)
 {
 	FILE *outfile;
-	int i,j,b;
+	unsigned int i,j,b;
 
 	// Attempt to open file for writing
-	if((outfile = fopen(filename, "w")) == NULL)
+	if ((outfile = fopen(filename, "w")) == NULL)
 	{
 		perror("Error opening file");
 		return 1;
@@ -81,7 +81,7 @@ int save_matrix(matrix mat, const char *filename)
 	// Not a problem as long as these files are opened
 	// on the same architecture that created them
 	b = sizeof(*mat)*fwrite(mat,sizeof(*mat),1,outfile);
-	for(i = 0; i < mat->n; i++)
+	for (i = 0; i < mat->n; i++)
 	{
 		for(j = 0; j < mat->m; j++)
 		{
@@ -98,7 +98,7 @@ int save_matrix(matrix mat, const char *filename)
 	
 	// Check to make sure all bytes were written
 	// if not, errno should be set
-	if(b != (sizeof(*mat)+(sizeof(mat->A)*mat->n*mat->m)))
+	if (b != (sizeof(*mat)+(sizeof(mat->A)*mat->n*mat->m)))
 	{
 		perror("Error writing file");
 		return 1;
@@ -114,13 +114,13 @@ matrix load_matrix(const char *filename)
 {
 	matrix mat,mat_info;
 	FILE *infile;
-	int i,j,b;
+	unsigned int i,j,b;
 	struct stat if_stat;
 
 	b = 0;
 
 	// Attempt to open file for reading
-	if((infile = fopen(filename, "r+")) == NULL)
+	if ((infile = fopen(filename, "r+")) == NULL)
 	{
 		perror("Error opening file");
 		return NULL;
@@ -128,7 +128,7 @@ matrix load_matrix(const char *filename)
 	
 	// Read in the dimensions of the old matrix first
 	// and then allocate space for where the rest of it goes
-	if((mat_info = zero_matrix(1,1)) == NULL) // Only for dimensions
+	if ((mat_info = zero_matrix(1,1)) == NULL) // Only for dimensions
 	{
 		return NULL;
 	}
@@ -138,7 +138,7 @@ matrix load_matrix(const char *filename)
 	// in the file match the size of the rest of the file. If not, it's very
 	// likely that someone has modified them with intent to corrupt the heap
 	stat(filename,&if_stat);
-	if((if_stat.st_size - sizeof(*mat_info)-1) !=
+	if ((if_stat.st_size - sizeof(*mat_info)-1) !=
 			(sizeof(mat_info->A)*mat_info->n*mat_info->m))
 	{
 		// If we don't catch this here and dimensions are wrong, fread()
@@ -149,7 +149,7 @@ matrix load_matrix(const char *filename)
 	}
 
 	// This is where our matrix will go
-	if((mat = zero_matrix(mat_info->n,mat_info->m)) == NULL)
+	if ((mat = zero_matrix(mat_info->n,mat_info->m)) == NULL)
 	{
 		return NULL;
 	}
@@ -159,7 +159,7 @@ matrix load_matrix(const char *filename)
 	mat->y_offset = mat_info->y_offset;
 	
 	// Read in each value of the matrix
-	for(i = 0; i < mat->n; i++)
+	for (i = 0; i < mat->n; i++)
 	{
 		for(j = 0; j < mat->m; j++)
 		{
@@ -174,7 +174,7 @@ matrix load_matrix(const char *filename)
 	// Check the number of bytes read against the number we expect
 	// if perror() returns "Success" here, it's very likely that someone
 	// has modified the matrix file with intent to corrupt the heap
-	if(b != (sizeof(*mat)+(sizeof(mat->A)*mat->n*mat->m)))
+	if (b != (sizeof(*mat)+(sizeof(mat->A)*mat->n*mat->m)))
 	{
 		perror("Error reading file");
 		return NULL;
@@ -189,7 +189,7 @@ matrix load_matrix(const char *filename)
 matrix mult_matrix(matrix A, matrix B)
 {
 	matrix C;
-	int i,j,k;
+	unsigned int i,j,k;
 	float sum;
 
 	// Make sure we can multiply these matrices
@@ -228,7 +228,7 @@ matrix mult_matrix(matrix A, matrix B)
 }
 
 // Set up a matrix structure
-matrix zero_matrix(int n, int m)
+matrix zero_matrix(unsigned int n, unsigned int m)
 {
 	matrix mat;
 	
@@ -290,7 +290,7 @@ matrix new_matrix(float (*element_function)(int, int, int, int),
 	mat->y_offset = y;
 
 	// element-wise matrix definition loop
-	for(i = x; i < n+x; i++)
+	for (i = x; i < n+x; i++)
 	{
 		for(j = y; j < m+y; j++)
 		{

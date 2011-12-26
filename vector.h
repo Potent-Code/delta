@@ -13,7 +13,7 @@
 // Store dimensions and offsets with a matrix
 typedef struct
 {
-	int n; // number of rows (height) of matrix
+	unsigned int n; // number of rows (height) of matrix
 	int x_offset; // coordinates of sub vector 1 <= x_offset <= n
 	float *a;
 } *vector;
