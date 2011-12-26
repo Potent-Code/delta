@@ -14,7 +14,7 @@
 typedef struct
 {
 	unsigned int n; // number of rows (height) of matrix
-	int x_offset; // coordinates of sub vector 1 <= x_offset <= n
+	unsigned int offset; // coordinates of sub vector 1 <= offset <= n
 	float *a;
 } *vector;
 
