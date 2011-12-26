@@ -129,7 +129,7 @@ uvector load_uvector(const char *filename)
 	}
 
 	// Set offsets
-	uvec->x_offset = uvec_info->x_offset;
+	uvec->offset = uvec_info->offset;
 	
 	// Read in each value of the uvector
 	for (i = 0; i < uvec->n; i++)
@@ -165,7 +165,7 @@ uvector zero_uvector(int n)
 	}
 
 	// Set offsets
-	uvec->x_offset = 1;
+	uvec->offset = 1;
 
 	// Make sure dimensions are >=1
 	if(n < 1)
@@ -207,7 +207,7 @@ uvector new_uvector(unsigned int (*element_function)(int, int),
 	}
 	
 	// set offset, it is 1 after allocation
-	uvec->x_offset = x;
+	uvec->offset = x;
 
 	// element-wise uvector definition loop
 	for(i = x; i < n+x; i++)

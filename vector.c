@@ -129,7 +129,7 @@ vector load_vector(const char *filename)
 	}
 
 	// Set offsets
-	vec->x_offset = vec_info->x_offset;
+	vec->offset = vec_info->offset;
 	
 	// Read in each value of the vector
 	for (i = 0; i < vec->n; i++)
@@ -165,7 +165,7 @@ vector zero_vector(int n)
 	}
 
 	// Set offsets
-	vec->x_offset = 1;
+	vec->offset = 1;
 
 	// Make sure dimensions are >=1
 	if(n < 1)
@@ -207,7 +207,7 @@ vector new_vector(float (*element_function)(int, int),
 	}
 	
 	// set offset, it is 1 after allocation
-	vec->x_offset = x;
+	vec->offset = x;
 
 	// element-wise vector definition loop
 	for(i = x; i < n+x; i++)
