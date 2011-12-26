@@ -19,21 +19,21 @@ extern int float_cmp(float a, float b, int n);
 // Store dimensions and offsets with a matrix
 typedef struct
 {
-	int n; // number of rows (height) of matrix
+	unsigned int n; // number of rows (height) of matrix
 	int x_offset; // coordinates of sub vector 1 <= x_offset <= n
 	float *a;
 } *vector;
 
 // prototypes for vector functions
-extern float * vector_allocate(int n);
+extern float * vector_allocate(unsigned int n);
 extern void print_vector(vector vec);
 extern int save_vector(vector vec, const char *filename);
 extern vector load_vector(const char *filename);
 extern vector mult_vector(vector a, vector b);
-extern vector zero_vector(int n);
+extern vector zero_vector(unsigned int n);
 extern vector new_vector(float (*element_function)(int, int),
-		int n, int x);
-extern void component_swap(vector vec, int i, int j);
+		unsigned int n, int x);
+extern void component_swap(vector vec, unsigned int i, unsigned int j);
 extern void free_vector(vector vec);
 
 // vector functions
@@ -43,36 +43,36 @@ typedef float(*func)(float *, int);
 // Store dimensions and offsets with a matrix
 typedef struct
 {
-	int n; // number of rows (height) of matrix
+	unsigned int n; // number of rows (height) of matrix
 	func * f; // array of function pointers
 } *vector_function;
 
 // prototypes for vector functions
-extern func * vecfunc_allocate(int n);
-extern vector_function new_vecfunc(int n, func f);
+extern func * vecfunc_allocate(unsigned int n);
+extern vector_function new_vecfunc(unsigned int n, func f);
 extern void free_vecfunc(vector_function vf);
 
 // matrix stuff
 // Store dimensions and offsets with a matrix
 typedef struct
 {
-	int n; // number of rows (height) of matrix
-	int m; // number of columns (width) of matrix
+	unsigned int n; // number of rows (height) of matrix
+	unsigned int m; // number of columns (width) of matrix
 	int x_offset; // coordinates of sub matrix 1 <= x_offset <= n
 	int y_offset; // coordinates of sub matrix 1 <= y_offset <= m
 	float **A;
 } *matrix;
 
 // prototypes for matrix functions
-extern float ** matrix_allocate(int n, int m);
+extern float ** matrix_allocate(unsigned int n, unsigned int m);
 extern void print_matrix(matrix mat);
 extern int save_matrix(matrix mat, const char *filename);
 extern matrix load_matrix(const char *filename);
 extern matrix mult_matrix(matrix A, matrix B);
-extern matrix zero_matrix(int n, int m);
+extern matrix zero_matrix(unsigned int n, unsigned int m);
 extern matrix new_matrix(float (*element_function)(int, int, int, int),
-		int n, int m, int x, int y);
-extern matrix identity_matrix(int n);
+		unsigned int n, unsigned int m, int x, int y);
+extern matrix identity_matrix(unsigned int n);
 extern void row_swap(float **A, int row1, int row2);
 extern void row_swap_partial(matrix mat, int row1, int row2, int min_col, int max_col);
 extern void col_swap_partial(matrix mat, int col1, int col2, int min_row, int max_row);
