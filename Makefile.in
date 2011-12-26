@@ -74,9 +74,9 @@ am__base_list = \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libmathlib_la_LIBADD =
-am_libmathlib_la_OBJECTS = matrix.lo vector.lo vector_function.lo \
-	runge_kutta4.lo newton_method.lo euler_method.lo float_cmp.lo \
-	linear_system.lo
+am_libmathlib_la_OBJECTS = matrix.lo vector.lo uvector.lo \
+	vector_function.lo runge_kutta4.lo newton_method.lo \
+	euler_method.lo float_cmp.lo linear_system.lo
 libmathlib_la_OBJECTS = $(am_libmathlib_la_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -223,7 +223,7 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 ACLOCAL_AMFLAGS = -I m4
 lib_LTLIBRARIES = libmathlib.la
-libmathlib_la_SOURCES = matrix.c matrix.h vector.c vector.h vector_function.c vector_function.h runge_kutta4.c runge_kutta4.h newton_method.c newton_method.h euler_method.c euler_method.h float_cmp.c float_cmp.h linear_system.c linear_system.h
+libmathlib_la_SOURCES = matrix.c matrix.h vector.c vector.h uvector.h uvector.c vector_function.c vector_function.h runge_kutta4.c runge_kutta4.h newton_method.c newton_method.h euler_method.c euler_method.h float_cmp.c float_cmp.h linear_system.c linear_system.h
 include_HEADERS = mathlib.h
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -327,6 +327,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/matrix.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/newton_method.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/runge_kutta4.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uvector.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vector.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vector_function.Plo@am__quote@
 
