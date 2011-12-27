@@ -5,7 +5,7 @@
 #include "vector.h"
 
 // prototypes for vector functions
-float * vector_allocate(int n);
+float* vector_allocate(int n);
 void print_vector(vector vec);
 int save_vector(vector vec, const char *filename);
 vector load_vector(const char *filename);
@@ -17,13 +17,13 @@ void component_swap(vector vec, int i, int j);
 void free_vector(vector vec);
 
 // allocate space for an n dimensional vector
-float * vector_allocate(int n)
+float* vector_allocate(int n)
 {
-	float *a;
+	float* a;
 
 	// allocate space for vector
-	a = calloc((size_t)n,sizeof(*a));
-	if(a == NULL)
+	a = calloc((size_t)n, sizeof(*a));
+	if (a == NULL)
 	{
 		perror("Error allocating memory");
 		return NULL;
@@ -63,8 +63,7 @@ int save_vector(vector vec, const char *filename)
 	b = sizeof(*vec)*fwrite(vec,sizeof(*vec),1,outfile);
 	for (i = 0; i < vec->n; i++)
 	{
-		b += sizeof(vec->a)*fwrite(&vec->a[i],
-				sizeof(vec->a),1,outfile);
+		b += sizeof(*vec->a) * fwrite(&vec->a[i], sizeof(*vec->a), 1, outfile);
 	}
 
 	// Insert an EOF	
@@ -72,7 +71,7 @@ int save_vector(vector vec, const char *filename)
 	
 	// check to make sure all bytes were written
 	// if not, errno should be set
-	if (b != (sizeof(*vec)+(sizeof(vec->a)*vec->n)))
+	if (b != (sizeof(*vec) + (sizeof(*vec->a) * vec->n)))
 	{
 		perror("Error writing file");
 		return 1;
@@ -102,7 +101,7 @@ vector load_vector(const char *filename)
 	
 	// Read in the dimensions of the old vector first
 	// and then allocate space for where the rest of it goes
-	if ((vec_info = zero_vector(1)) == NULL) // Only for dimensions
+	if ((vec_info = calloc(1, sizeof(*vec_info))) == NULL)
 	{
 		return NULL;
 	}
@@ -113,7 +112,7 @@ vector load_vector(const char *filename)
 	// likely that someone has modified them with intent to corrupt the heap
 	stat(filename,&if_stat);
 	if ((if_stat.st_size - sizeof(*vec_info)-1) !=
-			(sizeof(vec_info->a)*vec_info->n))
+			(sizeof(*vec_info->a)*vec_info->n))
 	{
 		// If we don't catch this here and dimensions are wrong, fread()
 		// will experience errors later trying to read parts of the file
@@ -130,19 +129,21 @@ vector load_vector(const char *filename)
 
 	// Set offsets
 	vec->offset = vec_info->offset;
+
+	// free our temporary vector
+	free(vec_info);
 	
 	// Read in each value of the vector
 	for (i = 0; i < vec->n; i++)
 	{
-		b += sizeof(vec->a)*fread(&vec->a[i],sizeof(vec->a),1,infile);
+		b += sizeof(*vec->a) * fread(&vec->a[i], sizeof(*vec->a), 1, infile);
 	}
 	
 	// check the number of bytes read against the number we expect
-	// if perror() returns "Success" here, it's very likely that someone
-	// has modified the vector file with intent to corrupt the heap
-	if (b != (sizeof(*vec)+(sizeof(vec->a)*vec->n)))
+	if (b != (sizeof(*vec)+(sizeof(*vec->a)*vec->n)))
 	{
 		perror("Error reading file");
+		free_vector(vec);
 		return NULL;
 	}
 
@@ -156,9 +157,7 @@ vector zero_vector(int n)
 {
 	vector vec;
 	
-	// aways check malloc, even though
-	// we're only asking for a few bytes...
-	if((vec = (vector)malloc(sizeof(*vec))) == NULL)
+	if ((vec = malloc(sizeof(*vec))) == NULL)
 	{
 		perror("Error allocating memory");
 		return NULL;
@@ -168,7 +167,7 @@ vector zero_vector(int n)
 	vec->offset = 1;
 
 	// Make sure dimensions are >=1
-	if(n < 1)
+	if (n < 1)
 	{
 		fprintf(stderr,"Error: dimensions must be >=1\n");
 		return NULL;
@@ -178,7 +177,7 @@ vector zero_vector(int n)
 	// allocate space for the actual vector
 	// errors are identified by vector_allocate(),
 	// so this is just to clean up
-	if((vec->a = vector_allocate(n)) == NULL)
+	if ((vec->a = vector_allocate(n)) == NULL)
 	{
 		free(vec);
 		return NULL;
@@ -230,13 +229,13 @@ void component_swap(vector vec, int i, int j)
 // Free a vector and its struct
 void free_vector(vector vec)
 {
-	if(vec->a != NULL)
-	{
-		free(vec->a);
-		vec->a = NULL;
-	}
 	if(vec != NULL)
 	{
+		if (vec->a != NULL)
+		{
+			free(vec->a);
+			vec->a = NULL;
+		}
 		free(vec);
 		vec = NULL;
 	}

@@ -124,11 +124,11 @@ typedef struct
 {
 	unsigned int n; // number of rows (height) of matrix
 	unsigned int offset; // coordinates of sub uvector 1 <= x_offset <= n
-	unsigned int *a;
+	unsigned int* a;
 } *uvector;
 
 // prototypes for uvector functions
-extern unsigned int * uvector_allocate(int n);
+extern unsigned int* uvector_allocate(int n);
 extern void print_uvector(uvector uvec);
 extern int save_uvector(uvector uvec, const char *filename);
 extern uvector load_uvector(const char *filename);

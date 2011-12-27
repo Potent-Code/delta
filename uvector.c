@@ -19,11 +19,11 @@ void free_uvector(uvector uvec);
 // allocate space for an n dimensional uvector
 unsigned int* uvector_allocate(int n)
 {
-	unsigned int *a;
+	unsigned int* a;
 
 	// allocate space for uvector
-	a = calloc((size_t)n,sizeof(*a));
-	if(a == NULL)
+	a = calloc((size_t)n, sizeof(*a));
+	if (a == NULL)
 	{
 		perror("Error allocating memory");
 		return NULL;
@@ -63,8 +63,7 @@ int save_uvector(uvector uvec, const char *filename)
 	b = sizeof(*uvec)*fwrite(uvec,sizeof(*uvec),1,outfile);
 	for (i = 0; i < uvec->n; i++)
 	{
-		b += sizeof(uvec->a)*fwrite(&uvec->a[i],
-				sizeof(uvec->a),1,outfile);
+		b += sizeof(*uvec->a)*fwrite(&uvec->a[i], sizeof(*uvec->a), 1, outfile);
 	}
 
 	// Insert an EOF	
@@ -72,7 +71,7 @@ int save_uvector(uvector uvec, const char *filename)
 	
 	// check to make sure all bytes were written
 	// if not, errno should be set
-	if (b != (sizeof(*uvec)+(sizeof(uvec->a)*uvec->n)))
+	if (b != (sizeof(*uvec)+(sizeof(*uvec->a)*uvec->n)))
 	{
 		perror("Error writing file");
 		return 1;
@@ -102,18 +101,16 @@ uvector load_uvector(const char *filename)
 	
 	// Read in the dimensions of the old uvector first
 	// and then allocate space for where the rest of it goes
-	if ((uvec_info = zero_uvector(1)) == NULL) // Only for dimensions
+	if ((uvec_info = calloc(1, sizeof(*uvec_info))) == NULL)
 	{
 		return NULL;
 	}
 	b = sizeof(*uvec_info)*fread(uvec_info,sizeof(*uvec_info),1,infile);
 
 	// at this point, we should check to make sure the dimensions specified
-	// in the file uvecch the size of the rest of the file. If not, it's very
-	// likely that someone has modified them with intent to corrupt the heap
 	stat(filename,&if_stat);
 	if ((if_stat.st_size - sizeof(*uvec_info)-1) !=
-			(sizeof(uvec_info->a)*uvec_info->n))
+			(sizeof(*uvec_info->a)*uvec_info->n))
 	{
 		// If we don't catch this here and dimensions are wrong, fread()
 		// will experience errors later trying to read parts of the file
@@ -131,18 +128,20 @@ uvector load_uvector(const char *filename)
 	// Set offsets
 	uvec->offset = uvec_info->offset;
 	
+	// free our temporary uvector
+	free(uvec_info);
+	
 	// Read in each value of the uvector
 	for (i = 0; i < uvec->n; i++)
 	{
-		b += sizeof(uvec->a)*fread(&uvec->a[i],sizeof(uvec->a),1,infile);
+		b += sizeof(*uvec->a)*fread(&uvec->a[i],sizeof(*uvec->a),1,infile);
 	}
 	
 	// check the number of bytes read against the number we expect
-	// if perror() returns "Success" here, it's very likely that someone
-	// has modified the uvector file with intent to corrupt the heap
-	if (b != (sizeof(*uvec)+(sizeof(uvec->a)*uvec->n)))
+	if (b != (sizeof(*uvec)+(sizeof(*uvec->a)*uvec->n)))
 	{
 		perror("Error reading file");
+		free_uvector(uvec);
 		return NULL;
 	}
 
@@ -156,9 +155,7 @@ uvector zero_uvector(int n)
 {
 	uvector uvec;
 	
-	// aways check malloc, even though
-	// we're only asking for a few bytes...
-	if((uvec = (uvector)malloc(sizeof(*uvec))) == NULL)
+	if((uvec = malloc(sizeof(*uvec))) == NULL)
 	{
 		perror("Error allocating memory");
 		return NULL;
@@ -230,13 +227,13 @@ void ucomponent_swap(uvector uvec, int i, int j)
 // Free a uvector and its struct
 void free_uvector(uvector uvec)
 {
-	if(uvec->a != NULL)
-	{
-		free(uvec->a);
-		uvec->a = NULL;
-	}
 	if(uvec != NULL)
 	{
+		if (uvec->a != NULL)
+		{
+			free(uvec->a);
+			uvec->a = NULL;
+		}
 		free(uvec);
 		uvec = NULL;
 	}
