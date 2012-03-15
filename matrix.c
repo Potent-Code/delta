@@ -10,6 +10,7 @@ void print_matrix(matrix mat);
 int save_matrix(matrix mat, const char *filename);
 matrix load_matrix(const char *filename);
 matrix mult_matrix(matrix A, matrix B);
+void matrix_product(matrix A, matrix B);
 matrix zero_matrix(unsigned int n, unsigned int m);
 matrix new_matrix(float (*element_function)(int, int, int, int),
 		int n, int m, int x, int y);
@@ -225,6 +226,44 @@ matrix mult_matrix(matrix A, matrix B)
 
 	return C;
 
+}
+
+// A = AB
+void matrix_product(matrix A, matrix B)
+{
+	float product[A->n][B->m]; // temporary space for our product
+	float sum;
+	unsigned int i,j,k;
+
+	// check dimension
+	if (A->m != B->n)
+	{
+		fprintf(stderr, "Matrices are dimensionally incompatible.");
+		return;
+	}
+
+	// multiply matrices
+	for (i = 0; i < A->n; i++)
+	{
+		for (j = 0; j < B->m; j++)
+		{
+			sum = 0.0;
+			for (k = 0; k < A->n; k++)
+			{
+				sum += A->A[i][k] * B->A[k][j];
+			}
+			product[i][j] = sum;
+		}
+	}
+
+	// set A = product
+	for (i = 0; i < A->n; i++)
+	{
+		for (j = 0; j < B->m; j++)
+		{
+			A->A[i][j] = product[i][j];
+		}
+	}
 }
 
 // Set up a matrix structure
