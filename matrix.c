@@ -10,6 +10,7 @@ void print_matrix(matrix mat);
 int save_matrix(matrix mat, const char *filename);
 matrix load_matrix(const char *filename);
 matrix mult_matrix(matrix A, matrix B);
+void matrix_set(matrix A, matrix B);
 void matrix_set_identity(matrix A);
 void matrix_product(matrix A, matrix B);
 void matrix_product_rev(matrix A, matrix B);
@@ -228,6 +229,19 @@ matrix mult_matrix(matrix A, matrix B)
 
 	return C;
 
+}
+
+// A = B
+void matrix_set(matrix A, matrix B)
+{
+	unsigned int i,j;
+	for (i = 0; i < A->n; i++)
+	{
+		for (j = 0; j < A->m; j++)
+		{
+			A->A[i][j] = B->A[i][j];
+		}
+	}
 }
 
 // A = I
