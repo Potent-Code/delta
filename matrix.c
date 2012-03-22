@@ -10,6 +10,7 @@ void print_matrix(matrix mat);
 int save_matrix(matrix mat, const char *filename);
 matrix load_matrix(const char *filename);
 matrix mult_matrix(matrix A, matrix B);
+void matrix_set_identity(matrix A);
 void matrix_product(matrix A, matrix B);
 void matrix_product_rev(matrix A, matrix B);
 matrix zero_matrix(unsigned int n, unsigned int m);
@@ -227,6 +228,20 @@ matrix mult_matrix(matrix A, matrix B)
 
 	return C;
 
+}
+
+// A = I
+void matrix_set_identity(matrix A)
+{
+	unsigned int i,j;
+	for (i = 0; i < A->n; i++)
+	{
+		for (j = 0; j < A->m; j++)
+		{
+			if (i == j) A->A[i][j] = 1.0;
+			else A->A[i][j] = 0.0;
+		}
+	}
 }
 
 // A = AB

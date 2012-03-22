@@ -26,6 +26,7 @@ extern void print_matrix(matrix mat);
 extern int save_matrix(matrix mat, const char *filename);
 extern matrix load_matrix(const char *filename);
 extern matrix mult_matrix(matrix A, matrix B);
+extern void matrix_set_identity(matrix A);
 extern void matrix_product(matrix A, matrix B);
 extern void matrix_product_rev(matrix A, matrix B);
 extern matrix zero_matrix(unsigned int n, unsigned int m);
