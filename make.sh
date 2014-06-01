@@ -3,7 +3,7 @@
 # if no arguments are given, we just want to build
 if [ "$1" == "" ]; then
 	echo "Building Delta..."
-	bam $BAMFLAGS -a
+	bam $BAMFLAGS -a Mode=Debug
 elif [ "$1" == "install" ]; then
 	cp libdelta.a /usr/local/lib/ &&
 	cp libdelta.so /usr/local/lib/ &&
