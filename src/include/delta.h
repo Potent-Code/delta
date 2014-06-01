@@ -2,8 +2,8 @@
  * by Ryan Lucchese
  * May 12 2011 */
 
-#ifndef MATHLIB_H
-#define MATHLIB_H
+#ifndef DELTA_H
+#define DELTA_H
 
 #include <stdlib.h>
 #include <stdio.h>
