@@ -1,7 +1,7 @@
 -- important paths
 sourcePath = "src/"
 implPath = sourcePath .. "impl/"
-objectPath = "obj/"
+intermediatePath = "build/"
 
 -- common settings for all Delta outputs
 function NewDeltaSettings()
@@ -26,7 +26,7 @@ function NewDeltaSettings()
 	
 	-- output objects to obj directory
 	delta_settings.cc.Output = function(delta_settings, input)
-		return objectPath .. PathFilename(PathBase(input))
+		return intermediatePath .. string.gsub(PathBase(input), "src/", "", 1)
 	end
 
 	-- add libpath
