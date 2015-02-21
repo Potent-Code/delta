@@ -1,11 +1,5 @@
-# build outputs
-*.o
-*.so
-*.a
-obj/
-
-# vim swap files
-*.swp
-
-# bam temp dir
+# bam cache
 .bam/
+
+# intermediate directory
+.build/
